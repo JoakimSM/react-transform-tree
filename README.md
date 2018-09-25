@@ -25,22 +25,22 @@ import { walk, kinds } from 'react-transform-tree';
 source = '<div><div>test</div></div>';
 
 walk(source, {
-        [kinds.DOM_ELEMENT]: (path) => {
-            const { node } = path;
-            if (node.type === 'div') {
-                return React.createElement(
-                    'span',
-                    node.props,
-                    ...path.walkChildren(),
-                );
-            }
-            return React.cloneElement(
-                node,
+    [kinds.DOM_ELEMENT]: (path) => {
+        const { node } = path;
+        if (node.type === 'div') {
+            return React.createElement(
+                'span',
                 node.props,
                 ...path.walkChildren(),
             );
-        },
-    });
+        }
+        return React.cloneElement(
+            node,
+            node.props,
+            ...path.walkChildren(),
+        );
+    },
+});
 ```
 
 
