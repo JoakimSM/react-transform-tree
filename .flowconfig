@@ -1,0 +1,11 @@
+[ignore]
+.*/build/.*
+.*/contents/.*
+.*/node_modules/.*
+
+[libs]
+flow/
+
+[options]
+all=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowSuppress
