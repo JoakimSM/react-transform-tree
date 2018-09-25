@@ -83,13 +83,12 @@ function doWalk(node: NodeOrNodeArray, handlersForKinds: KindHandlers) {
                     childNode => path.walk(childNode, childHandlers),
                 );
         },
-        handlersForKinds,
     };
 
     return handlersForKinds[path.kind](path);
 }
 
-export default function walk(node: NodeOrNodeArray, kindsHandlers: KindHandlers) {
+export default function walk(node: NodeOrNodeArray, kindsHandlers: ?KindHandlers) {
     const handlers = { ...defaultHandlersForKinds, ...kindsHandlers };
     return doWalk(node, handlers);
 }
