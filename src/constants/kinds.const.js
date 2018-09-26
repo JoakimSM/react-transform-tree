@@ -1,3 +1,4 @@
+// @flow
 const kinds = {
     EMPTY: 'empty',
     TEXT: 'text',

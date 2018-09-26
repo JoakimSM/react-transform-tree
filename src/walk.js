@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import kinds from './constants/kinds.const';
 import kindOf from './kindOf';

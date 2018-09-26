@@ -1,3 +1,4 @@
+// @flow
 import kinds from './constants/kinds.const';
 
 const isEmptyKind = node => node === null || node === undefined || typeof node === 'boolean';
