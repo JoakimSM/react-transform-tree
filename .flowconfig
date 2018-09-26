@@ -7,5 +7,4 @@
 flow/
 
 [options]
-all=true
-suppress_comment= \\(.\\|\n\\)*\\$FlowSuppress
+all=false

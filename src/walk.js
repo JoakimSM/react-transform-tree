@@ -1,60 +1,39 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import kinds from './constants/kinds.const';
 import kindOf from './kindOf';
 
-type EmptyNode = ?Boolean;
+type EmptyNode = ?boolean;
 type TextNode = string | number;
-type DomElement = {
-    type: string,
-    children: NodeOrNodeArray, // eslint-disable-line
-};
-type ComponentElement = {
-    type: string,
-    children: NodeOrNodeArray, // eslint-disable-line
-};
+type DomElement = React.Element<any>;
+type ComponentElement = React.Element<any>;
 
 type Node = EmptyNode | TextNode | DomElement | ComponentElement;
-type NodeOrNodeArray = Node | Array<Node>;
+export type NodeOrNodeArray = Node | Array<Node>;
 
-type KindHandlers = {
-    [kind: $Values<typeof kinds>]: (path: Path) => NodeOrNodeArray; // eslint-disable-line
-};
-
-type Path = {
-    node: NodeOrNodeArray,
+type Path<TNode> = {
+    node: TNode,
     kind: $Values<typeof kinds>,
     defaultHandler: () => any,
-    walk: (childNode: NodeOrNodeArray, childHandlers: ?KindHandlers) => NodeOrNodeArray,
-    walkChildren: (childHandlers: ?KindHandlers) => NodeOrNodeArray,
-    kindHandlers: KindHandlers,
+    walk: (childNode: NodeOrNodeArray, childHandlers: ?KindHandlers) => NodeOrNodeArray, // eslint-disable-line
+    walkChildren: (childHandlers: ?KindHandlers) => NodeOrNodeArray, // eslint-disable-line
 };
 
+type KindHandlers = {
+    empty?: (path: Path<EmptyNode>) => any,
+    text?: (path: Path<TextNode>) => any,
+    fragment?: (path: Path<Array<Node>>) => any,
+    domElement?: (path: Path<DomElement>) => any,
+    componentElement?: (path: Path<ComponentElement>) => any,
+};
 
-function defaultHandler(path: Path) {
-    const kind = kindOf(path.node);
-    if (kind === kinds.EMPTY) {
-        return path.node;
-    }
-    if (kind === kinds.TEXT) {
-        return path.node;
-    }
-    if (kind === kinds.FRAGMENT) {
-        return path.node.map(path.traverse);
-    }
-    return React.cloneElement(
-        path.node,
-        path.node.props,
-        ...path.walkChildren(),
-    );
-}
-
-const defaultHandlerEmpty = (path: Path) => path.node;
-const defaultHandlerText = (path: Path) => path.node;
-const defaultHandlerFragment = (path: Path) => path.node.map(path.walk);
-const defaultHandlerDomOrComponentElement = (path: Path) => React.cloneElement(
+const defaultHandlerEmpty = (path: Path<EmptyNode>) => path.node;
+const defaultHandlerText = (path: Path<TextNode>) => path.node;
+const defaultHandlerFragment = (path: Path<Array<Node>>) => path.node.map(n => path.walk(n));
+const defaultHandlerDomOrComponentElement = (path: Path<DomElement | ComponentElement>) => React.cloneElement(
     path.node,
     path.node.props,
+    // $FlowFixMe
     ...path.walkChildren(),
 );
 
@@ -71,12 +50,17 @@ function doWalk(node: NodeOrNodeArray, handlersForKinds: KindHandlers) {
         node,
         kind: kindOf(node),
         defaultHandler() {
-            return defaultHandler(path);
+            // $FlowFixMe
+            return defaultHandlersForKinds[path.kind](path);
         },
         walk(childNode, childHandlers = handlersForKinds) {
             return walk(childNode, childHandlers); //eslint-disable-line
         },
         walkChildren(childHandlers = handlersForKinds) {
+            if (!path.node || !path.node.props || !path.node.props.children) {
+                return null;
+            }
+
             return React
                 .Children
                 .toArray(path.node.props.children)
@@ -85,7 +69,7 @@ function doWalk(node: NodeOrNodeArray, handlersForKinds: KindHandlers) {
                 );
         },
     };
-
+    // $FlowFixMe
     return handlersForKinds[path.kind](path);
 }
 

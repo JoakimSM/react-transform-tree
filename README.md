@@ -40,11 +40,7 @@ walk(source, {
                 ...path.walkChildren(),
             );
         }
-        return React.cloneElement(
-            node,
-            node.props,
-            ...path.walkChildren(),
-        );
+        return path.defaultHandler();
     },
 });
 ```

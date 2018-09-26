@@ -63,11 +63,7 @@ const replaceDomElementWalk = () => {
                     ...path.walkChildren(),
                 );
             }
-            return React.cloneElement(
-                node,
-                node.props,
-                ...path.walkChildren(),
-            );
+            return path.defaultHandler();
         },
     });
 
@@ -98,11 +94,7 @@ const replaceDomElementAdvancedWalk = () => {
                     ...path.walkChildren(),
                 );
             }
-            return React.cloneElement(
-                node,
-                node.props,
-                ...path.walkChildren(),
-            );
+            return path.defaultHandler();
         },
     });
 
