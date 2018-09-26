@@ -3,6 +3,12 @@ Utility to transform a react tree
 
 ### Installation
 
+`npm i react-transform-tree`
+
+or 
+
+`yarn add react-transform-tree`
+
 ### Usage
 
 `walk(sourceNode, handlersForKinds)` is used to transform a node tree into another one. `handlersForKinds` is an object accepting property names from the kinds object (see below), where each property value is a function used to transform that specific kind of node. 
