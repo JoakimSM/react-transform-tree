@@ -1,11 +1,13 @@
 {
   "name": "react-transform-tree",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Utility to transform a react tree",
   "main": "lib/index.js",
   "scripts": {
-    "build:es": "babel src --out-dir lib --copy-files",
-    "build": "NODE_ENV=production npm run build:es",
+    "build:clean": "rimraf lib",
+    "build:es": "babel src --out-dir lib --ignore '**/__tests__/**'",
+    "build:flow": "flow-copy-source -v -i '**/__tests__/**' src lib",
+    "build": "NODE_ENV=production npm run build:clean && npm run build:es && npm run build:flow",
     "test": "jest",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "release": "npm run build && npm publish"
@@ -39,9 +41,11 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.81.0",
+    "flow-copy-source": "^2.0.2",
     "jest": "^23.6.0",
     "react": "^16.5.2",
-    "regenerator-runtime": "^0.12.1"
+    "regenerator-runtime": "^0.12.1",
+    "rimraf": "^2.6.2"
   },
   "dependencies": {},
   "peerDependencies": {

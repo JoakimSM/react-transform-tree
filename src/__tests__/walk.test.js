@@ -1,5 +1,5 @@
 import React from 'react';
-import { walk, kinds } from '../src';
+import { walk, kinds } from '..';
 
 const sourceNode = (
     <div>
