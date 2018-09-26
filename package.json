@@ -2,10 +2,13 @@
   "name": "react-transform-tree",
   "version": "1.0.0",
   "description": "Utility to transform a react tree",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build:es": "babel src --out-dir lib --copy-files",
+    "build": "NODE_ENV=production npm run build:es",
     "test": "jest",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "release": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -39,10 +43,12 @@
     "react": "^16.5.2",
     "regenerator-runtime": "^0.12.1"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.0.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
+    "@babel/polyfill": "^7.0.0",
     "react": "^16.5.2"
-  }
+  },
+  "files": [
+    "/lib/"
+  ]
 }
