@@ -58,7 +58,7 @@ function doWalk(node: NodeOrNodeArray, handlersForKinds: KindHandlers) {
         },
         walkChildren(childHandlers = handlersForKinds) {
             if (!path.node || !path.node.props || !path.node.props.children) {
-                return null;
+                return [];
             }
 
             return React
