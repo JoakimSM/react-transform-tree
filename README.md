@@ -17,11 +17,11 @@ Accepting kinds:
 empty, text, fragment, domElement, componentElement
 
 The transform function is passed a single object, which has the following properties:
-node: the original node
-kind: one of the kinds specified above
-defaultHandler(): the default handler for the current kind
-walkChildren(): a shortcut to traverse the children of the current node
-walk: a recursive call to the walk function
+- node: the original node
+- kind: one of the kinds specified above
+- defaultHandler(): the default handler for the current kind
+- walkChildren(): a shortcut to traverse the children of the current node
+- walk: a recursive call to the walk function
 
 To replace all div's with span's do something like this.
 
