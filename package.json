@@ -1,6 +1,6 @@
 {
   "name": "react-transform-tree",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "Utility to transform a react tree",
   "main": "lib/index.js",
   "scripts": {
