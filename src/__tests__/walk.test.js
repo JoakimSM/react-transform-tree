@@ -33,6 +33,11 @@ const executeFn = fn => (data) => {
 };
 const pipe = (...fns) => x => fns.reduce((v, fn) => fn(v), x);
 
+const emptyArrayWalk = () => {
+    const walkedNode = walk([]);
+    expect(walkedNode.length).toBe(0);
+};
+
 const basicWalk = () => {
     const walkedNode = walk(sourceNode);
 
@@ -135,6 +140,7 @@ const replaceDomElementAdvancedWalk = () => {
     expect(isEqual).toBeTruthy();
 };
 
+test('empty array walk', emptyArrayWalk);
 test('basic walk', basicWalk);
 test('replace div with span', replaceDomElementWalk);
 test('replace div with span advanced', replaceDomElementAdvancedWalk);
