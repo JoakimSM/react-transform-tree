@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/JoakimSM/react-transform-tree.svg?branch=master)](https://travis-ci.com/JoakimSM/react-transform-tree)
+
 # react-transform-tree
 Utility to transform a react tree
 
