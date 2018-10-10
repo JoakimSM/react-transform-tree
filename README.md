@@ -13,7 +13,7 @@ or
 
 ### Usage
 
-`walk(sourceNode, handlersForKinds)` is used to transform a node tree into another one. `handlersForKinds` is an object accepting property names from the kinds object (see below), where each property value is a function used to transform that specific kind of node. 
+`walk(sourceNode, handlersForKinds)` is used to transform a React node tree into another one. `handlersForKinds` is an object accepting property names from the kinds object (see below), where each property value is a function used to transform that specific kind of node. 
 
 Accepting kinds:
 empty, text, fragment, domElement, componentElement
@@ -29,8 +29,6 @@ To replace all div's with span's do something like this.
 
 ```
 import { walk, kinds } from 'react-transform-tree';
-
-source = '<div><div>test</div></div>';
 
 walk(source, {
     [kinds.DOM_ELEMENT]: (path) => {
